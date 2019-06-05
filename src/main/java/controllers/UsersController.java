@@ -5,12 +5,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import domains.User;
 import services.GsonParserService;
+import services.SessionService;
+import services.TokenService;
 import services.UsersService;
 import spark.*;
 
 public class UsersController   {
 
     private UsersService usersService = UsersService.getInstance();
+    private SessionService sessionService = SessionService.getInstance();
 
     private Gson gson = GsonParserService.getGson();
 
@@ -42,7 +45,9 @@ public class UsersController   {
             res.status(403);
             return "{\"status\": \"invalid login\", \"message\": \"Invalid user / password\"}";
         }
+        String token = TokenService.createToken();
+        sessionService.saveSession(userData, token);
 
-        return "{\"status\":\"OK\", \"token\":\"abcd\"}";
+        return "{\"status\":\"OK\", \"token\":\""+ token +"\"}";
     }
 }

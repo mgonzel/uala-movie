@@ -20,4 +20,8 @@ public class RedisService {
     public String get(String key) {
         return jedisPool.getResource().get(key);
     }
+
+    public void setExpirationValue(String key, int sessionExpirationTime, String sessionToken) {
+        jedisPool.getResource().setex(key, sessionExpirationTime, sessionToken);
+    }
 }
