@@ -19,7 +19,7 @@ public class Router implements SparkApplication {
 
         path("/users", () -> {
             post("",(req, res) -> usersController.create(req,res));
-            //post("/login", usersController.login);
+            post("/login", (req,res) -> usersController.login(req,res));
             //get("/:id", usersController.get);
 
         });

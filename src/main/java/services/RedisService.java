@@ -17,4 +17,7 @@ public class RedisService {
     }
 
 
+    public String get(String key) {
+        return jedisPool.getResource().get(key);
+    }
 }
